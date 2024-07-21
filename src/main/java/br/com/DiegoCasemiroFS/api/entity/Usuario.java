@@ -37,5 +37,7 @@ public class Usuario {
     @NotNull(message = "Campo CPF não deve ser nulo")
     private String cpf;
 
+    @NotEmpty(message = "Campo perfil e obrigatório")
+    @NotNull(message = "Campo perfil não deve ser nulo")
     private Perfil perfil;
 }
