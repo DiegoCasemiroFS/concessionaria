@@ -9,42 +9,43 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("v1/api/veiculo")
 public class VeiculoController {
 
     private final VeiculoService veiculoService;
 
-    @GetMapping
+    @GetMapping("/{findAll}")
     public List<Veiculo> listVeiculos(){
         return veiculoService.listVeiculos();
     }
 
-    @GetMapping
-    public Veiculo findById(Long id){
+    @GetMapping("/{id}")
+    public Veiculo findById(@PathVariable Long id){
         return veiculoService.findById(id);
     }
 
-    @GetMapping
-    public List<Veiculo> findByMarca(String marca){
+    @GetMapping("/{marca}")
+    public List<Veiculo> findByMarca(@RequestBody String marca){
         return veiculoService.findByMarca(marca);
     }
 
-    @GetMapping
-    public List<Veiculo> findByNome(String nome){
+    @GetMapping("/{nome}")
+    public List<Veiculo> findByNome(@RequestBody String nome){
         return veiculoService.findByNome(nome);
     }
 
     @PostMapping
-    public Veiculo cadastroVeiculo(Veiculo veiculo){
+    public Veiculo cadastroVeiculo(@RequestBody Veiculo veiculo){
         return veiculoService.cadastroVeiculo(veiculo);
     }
 
     @PutMapping
-    public Veiculo updateVeiculo(Long id, Veiculo veiculo){
+    public Veiculo updateVeiculo(@PathVariable Long id, @RequestBody Veiculo veiculo){
         return veiculoService.updateVeiculo(id, veiculo);
     }
 
     @DeleteMapping
-    public void deleteVeiculo(Long id){
+    public void deleteVeiculo(@PathVariable Long id){
         veiculoService.deleteVeiculo(id);
     }
 }
