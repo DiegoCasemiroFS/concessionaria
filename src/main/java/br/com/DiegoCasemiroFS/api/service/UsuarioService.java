@@ -1,6 +1,7 @@
 package br.com.DiegoCasemiroFS.api.service;
 
 import br.com.DiegoCasemiroFS.api.entity.Usuario;
+import br.com.DiegoCasemiroFS.api.exception.UsuarioException;
 import br.com.DiegoCasemiroFS.api.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,7 @@ public class UsuarioService {
 
     public Usuario findById(Long id){
         return usuarioRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Codigo do Usuario não encontrado."));
+                .orElseThrow(() -> new UsuarioException());
     }
 
     public Usuario createUsuario(Usuario usuario){
@@ -32,7 +33,7 @@ public class UsuarioService {
                     usuario.setId(f.getId());
                     usuarioRepository.save(usuario);
                     return usuario;
-                }).orElseThrow(() -> new RuntimeException("Usuario não encontrado"));
+                }).orElseThrow(() -> new UsuarioException());
     }
 
     public void deleteUsuario(Long id){
@@ -40,6 +41,6 @@ public class UsuarioService {
                 .map(f -> {
                     usuarioRepository.delete(f);
                     return Void.TYPE;
-                }).orElseThrow(() -> new RuntimeException("Codigo do Usuario não encotnrado"));
+                }).orElseThrow(() -> new UsuarioException());
     }
 }
