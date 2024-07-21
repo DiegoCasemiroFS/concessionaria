@@ -1,6 +1,7 @@
 package br.com.DiegoCasemiroFS.api.service;
 
 import br.com.DiegoCasemiroFS.api.entity.Veiculo;
+import br.com.DiegoCasemiroFS.api.exception.VeiculoException;
 import br.com.DiegoCasemiroFS.api.repository.VeiculoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,7 @@ public class VeiculoService {
 
     public Veiculo findById(Long id){
         return veiculoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Veículo não encontrado"));
+                .orElseThrow(() -> new VeiculoException());
     }
 
     public List<Veiculo> findByMarca(String marca){
@@ -30,13 +31,17 @@ public class VeiculoService {
         return veiculoRepository.findByNomeContainingIgnoreCase(nome);
     }
 
+    public Veiculo cadastroVeiculo(Veiculo veiculo){
+        return veiculoRepository.save(veiculo);
+    }
+
     public Veiculo updateVeiculo(Long id, Veiculo veiculo){
         return veiculoRepository.findById(id)
                 .map(f -> {
                     veiculoRepository.findById(id);
                     veiculoRepository.save(veiculo);
                     return veiculo;
-                }).orElseThrow(() -> new RuntimeException("Veículo não encontrado"));
+                }).orElseThrow(() -> new VeiculoException());
     }
 
     public void deleteVeiculo(Long id){
@@ -44,6 +49,6 @@ public class VeiculoService {
                 .map(f -> {
                     veiculoRepository.delete(f);
                     return Void.TYPE;
-                }).orElseThrow(() -> new RuntimeException("Veículo não encontrado"));
+                }).orElseThrow(() -> new VeiculoException());
     }
 }
