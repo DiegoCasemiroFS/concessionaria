@@ -31,11 +31,11 @@ public class VeiculoService {
         return veiculoRepository.findByNomeContainingIgnoreCase(nome);
     }
 
-    public Veiculo cadastroVeiculo(Veiculo veiculo){
+    public Veiculo cadastraVeiculo(Veiculo veiculo){
         return veiculoRepository.save(veiculo);
     }
 
-    public Veiculo updateVeiculo(Long id, Veiculo veiculo){
+    public Veiculo atualizaVeiculo(Long id, Veiculo veiculo){
         return veiculoRepository.findById(id)
                 .map(f -> {
                     veiculoRepository.findById(id);
@@ -44,7 +44,7 @@ public class VeiculoService {
                 }).orElseThrow(() -> new VeiculoException());
     }
 
-    public void deleteVeiculo(Long id){
+    public void deletaVeiculo(Long id){
         veiculoRepository.findById(id)
                 .map(f -> {
                     veiculoRepository.delete(f);
