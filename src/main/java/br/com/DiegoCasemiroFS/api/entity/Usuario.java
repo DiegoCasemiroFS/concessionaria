@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Entity
@@ -29,26 +30,12 @@ public class Usuario implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 100)
-    @NotEmpty(message = "Campo nome e obrigatório")
     private String nome;
 
-    @Column(length = 80)
-    @Email(message = "Informe um email valido")
-    @NotEmpty(message = "Campo email e obrigatório")
     private String email;
 
-    @Column(length = 80)
-    @NotEmpty(message = "Campo senha e obrigatório")
     private String senha;
 
-    @Column(length = 14)
-    @CPF(message = "Informe um CPF valido")
-    @NotEmpty(message = "Campo CPF e obrigatório")
-    private String cpf;
-
-    @NotEmpty(message = "Campo perfil e obrigatório")
-    @NotNull(message = "Campo perfil não deve ser nulo")
     private Perfil perfil;
 
     @OneToMany(mappedBy = "usuario")
@@ -56,7 +43,7 @@ public class Usuario implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_USUARIO"));
+        return Collections.singletonList(new SimpleGrantedAuthority(perfil.name()));
     }
 
     @Override
