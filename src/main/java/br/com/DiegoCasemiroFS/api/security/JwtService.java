@@ -2,7 +2,6 @@ package br.com.DiegoCasemiroFS.api.security;
 
 import br.com.DiegoCasemiroFS.api.entity.Usuario;
 import com.auth0.jwt.JWT;
-import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
@@ -32,7 +31,7 @@ public class JwtService {
         }
     }
 
-    public String getSubject(String tokenJwt) {
+    public String validaToken(String tokenJwt) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             return JWT.require(algorithm)
@@ -41,7 +40,7 @@ public class JwtService {
                     .verify(tokenJwt)
                     .getSubject();
         } catch (JWTVerificationException exception){
-            throw new RuntimeException("Token invalido");
+            return null;
         }
     }
 
