@@ -9,10 +9,12 @@ Microserviço que simula um app de Venda de Veículos
 
 ## Técnologias Usadas
 
-- Spring JPA
+- Spring WEB
+- Spring Data JPA
 - Spring Security
-- Autenticação JWT
+- Lombok
 - H2 database
+- Autenticação JWT
 
 ## Diagrama das Classes
 
