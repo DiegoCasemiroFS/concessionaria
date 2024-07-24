@@ -1,9 +1,10 @@
 package br.com.DiegoCasemiroFS.api.service;
 
 import br.com.DiegoCasemiroFS.api.entity.Usuario;
-import br.com.DiegoCasemiroFS.api.entity.dto.RegistroRequestDto;
+import br.com.DiegoCasemiroFS.api.entity.dto.UsuarioRequestDto;
 import br.com.DiegoCasemiroFS.api.entity.dto.LoginRequestDto;
-import br.com.DiegoCasemiroFS.api.entity.dto.ResponseDto;
+import br.com.DiegoCasemiroFS.api.entity.dto.UsuarioResponseDto;
+import br.com.DiegoCasemiroFS.api.exception.UsuarioException;
 import br.com.DiegoCasemiroFS.api.repository.UsuarioRepository;
 import br.com.DiegoCasemiroFS.api.security.JwtService;
 import lombok.RequiredArgsConstructor;
@@ -25,23 +26,23 @@ public class UsuarioService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return usuarioRepository.findByEmail(username).orElseThrow(
-                () -> new UsernameNotFoundException(username + " não encontrado")
+        return usuarioRepository.findByEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException(username + " não encontrado")
         );
     }
 
-    public ResponseDto login(LoginRequestDto body) {
+    public UsuarioResponseDto login(LoginRequestDto body) {
         Usuario usuario = usuarioRepository.findByEmail(body.getEmail())
-                .orElseThrow(() -> new RuntimeException("Usuario não encontrado"));
+                .orElseThrow(UsuarioException::new);
 
         if (passwordEncoder.matches(body.getSenha(), usuario.getPassword())) {
             String token = jwtService.geraToken(usuario);
-            return new ResponseDto(usuario.getNome(), token, usuario.isAdmin());
+            return new UsuarioResponseDto(usuario.getNome(), token, usuario.isAdmin());
         }
         throw new RuntimeException("Usuario ou senha incorretos");
     }
 
-    public ResponseDto registro(RegistroRequestDto body) {
+    public UsuarioResponseDto registro(UsuarioRequestDto body) {
         Optional<Usuario> user = usuarioRepository.findByEmail(body.getEmail());
 
         if (user.isEmpty()) {
@@ -53,7 +54,7 @@ public class UsuarioService implements UserDetailsService {
             usuarioRepository.save(usuario);
 
             String token = jwtService.geraToken(usuario);
-            return new ResponseDto(usuario.getNome(), token, usuario.isAdmin());
+            return new UsuarioResponseDto(usuario.getNome(), token, usuario.isAdmin());
         }
         throw new RuntimeException("Email já cadastrado");
     }
