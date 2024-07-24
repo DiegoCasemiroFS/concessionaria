@@ -1,6 +1,7 @@
 package br.com.DiegoCasemiroFS.api.entity;
 
 import br.com.DiegoCasemiroFS.api.entity.enums.TipoVeiculo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -32,7 +33,19 @@ public class Veiculo {
     private TipoVeiculo tipoVeiculo;
 
     @OneToMany(mappedBy = "veiculo")
+    @JsonIgnore
     private List<Pedido> pedidos = new ArrayList<>();
 
-
+    @Override
+    public String toString() {
+        return "Veiculo{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", marca='" + marca + '\'' +
+                ", modelo=" + modelo +
+                ", ano=" + ano +
+                ", preco=" + preco +
+                ", tipoVeiculo=" + tipoVeiculo +
+                '}';
+    }
 }

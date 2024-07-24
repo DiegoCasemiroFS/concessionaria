@@ -1,5 +1,6 @@
 package br.com.DiegoCasemiroFS.api.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,11 +20,23 @@ public class Pedido {
 
     @ManyToOne
     @JoinColumn(name = "veiculo_id")
+    @JsonIgnore
     private Veiculo veiculo;
 
     @ManyToOne
     @JoinColumn(name = "usuario_id")
+    @JsonIgnore
     private Usuario usuario;
 
     private LocalDateTime dataCadastro;
+
+    @Override
+    public String toString() {
+        return "Pedido{" +
+                "id=" + id +
+                ", veiculo=" + veiculo +
+                ", usuario=" + usuario +
+                ", dataCadastro=" + dataCadastro +
+                '}';
+    }
 }

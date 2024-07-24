@@ -1,5 +1,6 @@
 package br.com.DiegoCasemiroFS.api.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -34,7 +35,19 @@ public class Usuario implements UserDetails {
     private boolean admin;
 
     @OneToMany(mappedBy = "usuario")
+    @JsonIgnore
     private List<Pedido> pedidos = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", email='" + email + '\'' +
+                ", senha='" + senha + '\'' +
+                ", admin=" + admin +
+                '}';
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
