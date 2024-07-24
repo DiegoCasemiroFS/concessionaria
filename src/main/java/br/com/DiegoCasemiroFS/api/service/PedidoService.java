@@ -3,7 +3,8 @@ package br.com.DiegoCasemiroFS.api.service;
 import br.com.DiegoCasemiroFS.api.entity.Pedido;
 import br.com.DiegoCasemiroFS.api.entity.Usuario;
 import br.com.DiegoCasemiroFS.api.entity.Veiculo;
-import br.com.DiegoCasemiroFS.api.entity.dto.PedidoDto;
+import br.com.DiegoCasemiroFS.api.entity.dto.PedidoRequestDto;
+import br.com.DiegoCasemiroFS.api.entity.dto.PedidoResponseDto;
 import br.com.DiegoCasemiroFS.api.repository.PedidoRepository;
 import br.com.DiegoCasemiroFS.api.repository.UsuarioRepository;
 import br.com.DiegoCasemiroFS.api.repository.VeiculoRepository;
@@ -26,11 +27,9 @@ public class PedidoService {
         return pedido;
     }
 
-    public Pedido cadastraPedido(PedidoDto pedidoDto) {
-        Veiculo veiculo = veiculoRepository.findById(pedidoDto.getVeiculoId())
-                .orElseThrow(() -> new RuntimeException("Veiculo not found"));
-        Usuario usuario = usuarioRepository.findById(pedidoDto.getUsuarioId())
-                .orElseThrow(() -> new RuntimeException("Usuario not found"));
+    public PedidoResponseDto cadastraPedido(PedidoRequestDto pedidoDto) {
+        Veiculo veiculo = veiculoRepository.findById(pedidoDto.getVeiculoId()).orElseThrow(() -> new RuntimeException("Veiculo não encontrado"));
+        Usuario usuario = usuarioRepository.findById(pedidoDto.getUsuarioId()).orElseThrow(() -> new RuntimeException("Usuario não encontrado"));
 
         Pedido pedido = new Pedido();
         pedido.setVeiculo(veiculo);
@@ -38,18 +37,36 @@ public class PedidoService {
         pedido.setDataCadastro(LocalDateTime.now());
 
         Pedido savedPedido = pedidoRepository.save(pedido);
-        return savedPedido;
+
+        PedidoResponseDto responseDto = new PedidoResponseDto();
+        responseDto.setId(savedPedido.getId());
+        responseDto.setNomeVeiculo(savedPedido.getVeiculo().getNome());
+        responseDto.setNomeUsuario(savedPedido.getUsuario().getNome());
+        responseDto.setDataCadastro(savedPedido.getDataCadastro());
+
+        return responseDto;
     }
 
-    public Optional<Pedido> atualizaPedido(Long id, Pedido pedido) {
-        return pedidoRepository.findById(id).map(existingPedido -> {
-            existingPedido.setVeiculo(pedido.getVeiculo());
-            existingPedido.setUsuario(pedido.getUsuario());
-            existingPedido.setDataCadastro(pedido.getDataCadastro());
-            Pedido updatedPedido = pedidoRepository.save(existingPedido);
-            return updatedPedido;
-        });
+    public PedidoResponseDto atualizaPedido(Long id, PedidoRequestDto pedidoDto) {
+        Pedido pedido = pedidoRepository.findById(id).orElseThrow(() -> new RuntimeException("Pedido não encontrado"));
+        Veiculo veiculo = veiculoRepository.findById(pedidoDto.getVeiculoId()).orElseThrow(() -> new RuntimeException("Veículo não encontrado"));
+        Usuario usuario = usuarioRepository.findById(pedidoDto.getUsuarioId()).orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+        pedido.setVeiculo(veiculo);
+        pedido.setUsuario(usuario);
+        pedido.setDataCadastro(LocalDateTime.now());
+
+        Pedido updatedPedido = pedidoRepository.save(pedido);
+
+        PedidoResponseDto responseDto = new PedidoResponseDto();
+        responseDto.setId(updatedPedido.getId());
+        responseDto.setNomeVeiculo(updatedPedido.getVeiculo().getNome());
+        responseDto.setNomeUsuario(updatedPedido.getUsuario().getNome());
+        responseDto.setDataCadastro(updatedPedido.getDataCadastro());
+
+        return responseDto;
     }
+
 
     public void deletaPedido(Long id) {
         pedidoRepository.deleteById(id);
