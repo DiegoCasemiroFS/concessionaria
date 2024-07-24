@@ -1,4 +1,17 @@
 package br.com.DiegoCasemiroFS.api.entity.dto;
 
-public record ResponseDto(String email, String token) {
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class ResponseDto {
+
+    private String email;
+    private String token;
+    private boolean admin;
 }

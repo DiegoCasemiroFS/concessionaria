@@ -1,4 +1,16 @@
 package br.com.DiegoCasemiroFS.api.entity.dto;
 
-public record LoginRequestDto(String email, String senha){
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class LoginRequestDto{
+
+    private String email;
+    private String senha;
 }
