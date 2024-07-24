@@ -23,14 +23,6 @@ public class VeiculoService {
                 .orElseThrow(() -> new VeiculoException());
     }
 
-    public List<Veiculo> findByMarca(String marca){
-        return veiculoRepository.findByMarcaContainingIgnoreCase(marca);
-    }
-
-    public List<Veiculo> findByNome(String nome){
-        return veiculoRepository.findByNomeContainingIgnoreCase(nome);
-    }
-
     public Veiculo cadastraVeiculo(Veiculo veiculo){
         return veiculoRepository.save(veiculo);
     }

@@ -23,14 +23,4 @@ public class VitrineController {
     public Veiculo findById(@PathVariable Long id){
         return veiculoService.findById(id);
     }
-
-    @GetMapping(("/marca"))
-    public List<Veiculo> findByMarca(@RequestBody String marca){
-        return veiculoService.findByMarca(marca);
-    }
-
-    @GetMapping(("/nome"))
-    public List<Veiculo> findByNome(@RequestBody String nome){
-        return veiculoService.findByNome(nome);
-    }
 }
