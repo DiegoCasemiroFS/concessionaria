@@ -1,6 +1,18 @@
 package br.com.DiegoCasemiroFS.api.entity.dto;
 
-import br.com.DiegoCasemiroFS.api.entity.enums.Perfil;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-public record RegistroRequestDto(String nome, String email, String senha, Perfil perfil) {
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class RegistroRequestDto{
+
+    private String nome;
+    private String email;
+    private String senha;
+    private boolean admin;
 }
