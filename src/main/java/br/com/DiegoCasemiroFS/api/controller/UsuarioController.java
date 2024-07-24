@@ -27,27 +27,28 @@ public class UsuarioController {
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody LoginRequestDto body){
-        Usuario usuario = this.repository.findByEmail(body.email()).orElseThrow(() -> new RuntimeException("User not found"));
-        if(passwordEncoder.matches(body.senha(), usuario.getPassword())) {
-            String token = this.service.gerarToken(usuario);
-            return ResponseEntity.ok(new ResponseDto(usuario.getNome(), token));
+        Usuario usuario = this.repository.findByEmail(body.getEmail()).orElseThrow(() -> new RuntimeException("User not found"));
+        if(passwordEncoder.matches(body.getSenha(), usuario.getPassword())) {
+            String token = this.service.geraToken(usuario);
+            return ResponseEntity.ok(new ResponseDto(usuario.getNome(), token, usuario.isAdmin()));
         }
         return ResponseEntity.badRequest().build();
     }
 
     @PostMapping("/registro")
     public ResponseEntity registro(@RequestBody RegistroRequestDto body){
-        Optional<Usuario> user = this.repository.findByEmail(body.email());
+        Optional<Usuario> user = this.repository.findByEmail(body.getEmail());
 
         if(user.isEmpty()) {
-            Usuario newUser = new Usuario();
-            newUser.setSenha(passwordEncoder.encode(body.senha()));
-            newUser.setEmail(body.email());
-            newUser.setNome(body.nome());
-            this.repository.save(newUser);
+            Usuario usuario = new Usuario();
+            usuario.setSenha(passwordEncoder.encode(body.getSenha()));
+            usuario.setEmail(body.getEmail());
+            usuario.setNome(body.getNome());
+            usuario.setAdmin(body.isAdmin());
+            this.repository.save(usuario);
 
-            String token = this.service.gerarToken(newUser);
-            return ResponseEntity.ok(new ResponseDto(newUser.getNome(), token));
+            String token = this.service.geraToken(usuario);
+            return ResponseEntity.ok(new ResponseDto(usuario.getNome(), token, usuario.isAdmin()));
         }
         return ResponseEntity.badRequest().build();
     }
