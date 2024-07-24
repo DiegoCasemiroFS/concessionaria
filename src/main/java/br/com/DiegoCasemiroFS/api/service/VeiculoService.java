@@ -27,13 +27,19 @@ public class VeiculoService {
         return veiculoRepository.save(veiculo);
     }
 
-    public Veiculo atualizaVeiculo(Long id, Veiculo veiculo){
+    public Veiculo atualizaVeiculo(Long id, Veiculo veiculo) {
         return veiculoRepository.findById(id)
                 .map(f -> {
-                    veiculoRepository.findById(id);
-                    veiculoRepository.save(veiculo);
-                    return veiculo;
-                }).orElseThrow(() -> new VeiculoException());
+                    f.setNome(veiculo.getNome());
+                    f.setMarca(veiculo.getMarca());
+                    f.setModelo(veiculo.getModelo());
+                    f.setAno(veiculo.getAno());
+                    f.setPreco(veiculo.getPreco());
+                    f.setTipoVeiculo(veiculo.getTipoVeiculo());
+
+                    return veiculoRepository.save(f);
+                })
+                .orElseThrow(() -> new VeiculoException());
     }
 
     public void deletaVeiculo(Long id){
