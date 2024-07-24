@@ -20,7 +20,7 @@ public class VeiculoService {
 
     public Veiculo findById(Long id){
         return veiculoRepository.findById(id)
-                .orElseThrow(() -> new VeiculoException());
+                .orElseThrow(VeiculoException::new);
     }
 
     public Veiculo cadastraVeiculo(Veiculo veiculo){
