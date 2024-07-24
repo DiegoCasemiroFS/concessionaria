@@ -27,7 +27,7 @@ git clone git clone https://github.com/DiegoCasemiroFS/concessionaria.git
 
 ```mermaid
 classDiagram
-    class Usuario implements UserDetails{
+    class Usuario{
         +Long id;
         +String name;
         +String email;
@@ -71,7 +71,7 @@ classDiagram
     Veiculo "1" --> "n" Pedido
 ```
 
-## API Endpoints
+## Endpoints
 
 ### Usuario
 
