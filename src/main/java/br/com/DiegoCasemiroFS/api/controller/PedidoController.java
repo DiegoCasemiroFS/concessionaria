@@ -12,17 +12,17 @@ public class PedidoController {
 
     private final PedidoService pedidoService;
 
-    @PostMapping
+    @PostMapping("/cria")
     public Pedido cria(@RequestBody Pedido pedido) {
         return pedidoService.createPedido(pedido);
     }
 
-    @PutMapping
+    @PutMapping(("/{id}"))
     public Pedido atualiza(@PathVariable Long id , @RequestBody Pedido pedido) {
         return pedidoService.updatePedido(id, pedido);
     }
 
-    @DeleteMapping
+    @DeleteMapping(("/{id}"))
     public void deleta(@PathVariable Long id) {
         pedidoService.deletePedido(id);
     }
