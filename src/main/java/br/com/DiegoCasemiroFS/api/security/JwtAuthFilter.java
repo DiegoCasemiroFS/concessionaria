@@ -25,12 +25,17 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        var token = this.recoverToken(request);
+        var token = recoverToken(request);
         var login = jwtService.validaToken(token);
 
-        if(login != null){
-            Usuario usuario = usuarioRepository.findByEmail(login).orElseThrow(() -> new RuntimeException("Usuario não encontrado"));
-            var authorities = Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"));
+        if (login != null) {
+            Usuario usuario = usuarioRepository.findByEmail(login)
+                    .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+            var authorities = usuario.isAdmin()
+                    ? Collections.singletonList(new SimpleGrantedAuthority("ROLE_ADMIN"))
+                    : Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"));
+
             var authentication = new UsernamePasswordAuthenticationToken(usuario, null, authorities);
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
