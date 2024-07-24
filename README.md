@@ -1,4 +1,4 @@
-# Concessionaria
+# Concessionária
 ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
 ![Spring](https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white)
 ![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
@@ -8,7 +8,7 @@
 Esta API simula um aplicativo para a venda de veículos. Ela foi desenvolvida utilizando o Spring Framework
 e oferece funcionalidades para o gerenciamento de usuários, veículos e pedidos.
 
-## Técnologias Utilizadas
+## Tecnologias Utilizadas
 
 - Spring WEB
 - Spring Data JPA
@@ -73,7 +73,7 @@ classDiagram
 
 ## Endpoints
 
-### Usuario
+### Usuário
 
 POST - Para realizar o cadastro de novos Usuários
 ```bash
@@ -127,7 +127,7 @@ http://localhost:8080/veiculo/cadastra
 }
 ```
 
-PUT - Para atualizar o registro de veiculos (Somente para ROLE_ADMIN)
+PUT - Para atualizar o registro de Veículos (Somente para ROLE_ADMIN)
 ```bash
 http://localhost:8080/veiculo/{id}
 ```
