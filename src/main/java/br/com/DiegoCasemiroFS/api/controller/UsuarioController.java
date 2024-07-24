@@ -1,7 +1,7 @@
 package br.com.DiegoCasemiroFS.api.controller;
 
-import br.com.DiegoCasemiroFS.api.entity.dto.RegistroRequestDto;
-import br.com.DiegoCasemiroFS.api.entity.dto.ResponseDto;
+import br.com.DiegoCasemiroFS.api.entity.dto.UsuarioRequestDto;
+import br.com.DiegoCasemiroFS.api.entity.dto.UsuarioResponseDto;
 import br.com.DiegoCasemiroFS.api.entity.dto.LoginRequestDto;
 import br.com.DiegoCasemiroFS.api.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
@@ -19,14 +19,14 @@ public class UsuarioController {
     private final UsuarioService usuarioService;
 
     @PostMapping("/login")
-    public ResponseEntity<ResponseDto> login(@RequestBody LoginRequestDto body) {
-            ResponseDto response = usuarioService.login(body);
+    public ResponseEntity<UsuarioResponseDto> login(@RequestBody LoginRequestDto body) {
+            UsuarioResponseDto response = usuarioService.login(body);
             return ResponseEntity.ok(response);
     }
 
     @PostMapping("/registro")
-    public ResponseEntity<ResponseDto> registro(@RequestBody RegistroRequestDto body) {
-            ResponseDto response = usuarioService.registro(body);
+    public ResponseEntity<UsuarioResponseDto> registro(@RequestBody UsuarioRequestDto body) {
+            UsuarioResponseDto response = usuarioService.registro(body);
             return ResponseEntity.ok(response);
     }
 }
