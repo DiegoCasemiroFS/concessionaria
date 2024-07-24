@@ -8,6 +8,4 @@ import java.util.List;
 public interface VeiculoRepository extends JpaRepository<Veiculo, Long> {
 
     List<Veiculo> findAllByOrderByPrecoAsc();
-    List<Veiculo> findByNomeContainingIgnoreCase(String nome);
-    List<Veiculo> findByMarcaContainingIgnoreCase(String marca);
 }
