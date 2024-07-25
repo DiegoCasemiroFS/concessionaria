@@ -37,12 +37,12 @@ public class UsuarioService implements UserDetailsService {
 
         if (passwordEncoder.matches(body.getSenha(), usuario.getPassword())) {
             String token = jwtService.geraToken(usuario);
-            return new UsuarioResponseDto(usuario.getNome(), token, usuario.isAdmin());
+            return new UsuarioResponseDto(usuario.getId(), usuario.getNome(), token, usuario.isAdmin());
         }
         throw new RuntimeException("Usuario ou senha incorretos");
     }
 
-    public UsuarioResponseDto registro(UsuarioRequestDto body) {
+    public UsuarioResponseDto cadastro(UsuarioRequestDto body) {
         Optional<Usuario> user = usuarioRepository.findByEmail(body.getEmail());
 
         if (user.isEmpty()) {
@@ -54,7 +54,7 @@ public class UsuarioService implements UserDetailsService {
             usuarioRepository.save(usuario);
 
             String token = jwtService.geraToken(usuario);
-            return new UsuarioResponseDto(usuario.getNome(), "Realize o login para ter acesso ao Token", usuario.isAdmin());
+            return new UsuarioResponseDto(usuario.getId(), usuario.getNome(), "Realize o login para ter acesso ao Token", usuario.isAdmin());
         }
         throw new RuntimeException("Email já cadastrado");
     }
