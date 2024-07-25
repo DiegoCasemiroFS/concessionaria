@@ -4,6 +4,8 @@ import br.com.DiegoCasemiroFS.api.entity.Usuario;
 import br.com.DiegoCasemiroFS.api.entity.dto.UsuarioRequestDto;
 import br.com.DiegoCasemiroFS.api.entity.dto.LoginRequestDto;
 import br.com.DiegoCasemiroFS.api.entity.dto.UsuarioResponseDto;
+import br.com.DiegoCasemiroFS.api.exception.CadastroException;
+import br.com.DiegoCasemiroFS.api.exception.LoginException;
 import br.com.DiegoCasemiroFS.api.exception.UsuarioException;
 import br.com.DiegoCasemiroFS.api.repository.UsuarioRepository;
 import br.com.DiegoCasemiroFS.api.security.JwtService;
@@ -39,7 +41,7 @@ public class UsuarioService implements UserDetailsService {
             String token = jwtService.geraToken(usuario);
             return new UsuarioResponseDto(usuario.getId(), usuario.getNome(), token, usuario.isAdmin());
         }
-        throw new RuntimeException("Usuario ou senha incorretos");
+        throw new LoginException();
     }
 
     public UsuarioResponseDto cadastro(UsuarioRequestDto body) {
@@ -54,8 +56,12 @@ public class UsuarioService implements UserDetailsService {
             usuarioRepository.save(usuario);
 
             String token = jwtService.geraToken(usuario);
-            return new UsuarioResponseDto(usuario.getId(), usuario.getNome(), "Realize o login para ter acesso ao Token", usuario.isAdmin());
+            return new UsuarioResponseDto(
+                    usuario.getId(),
+                    usuario.getNome(),
+                    "Realize o login para ter acesso ao Token",
+                    usuario.isAdmin());
         }
-        throw new RuntimeException("Email já cadastrado");
+        throw new CadastroException();
     }
 }
