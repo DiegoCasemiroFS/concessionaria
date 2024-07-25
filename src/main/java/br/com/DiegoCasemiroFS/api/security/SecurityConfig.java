@@ -31,6 +31,7 @@ public class SecurityConfig {
                         .requestMatchers("/veiculo/*").hasRole("ADMIN")
                         .requestMatchers("/pedido/*").permitAll()
                         .requestMatchers("/vitrine/*").permitAll()
+                        .requestMatchers("/v3/api-docs/**", "/swagger-ui/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
