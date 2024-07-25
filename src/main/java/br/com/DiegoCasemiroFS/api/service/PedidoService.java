@@ -5,6 +5,7 @@ import br.com.DiegoCasemiroFS.api.entity.Usuario;
 import br.com.DiegoCasemiroFS.api.entity.Veiculo;
 import br.com.DiegoCasemiroFS.api.entity.dto.PedidoRequestDto;
 import br.com.DiegoCasemiroFS.api.entity.dto.PedidoResponseDto;
+import br.com.DiegoCasemiroFS.api.exception.PedidoException;
 import br.com.DiegoCasemiroFS.api.repository.PedidoRepository;
 import br.com.DiegoCasemiroFS.api.repository.UsuarioRepository;
 import br.com.DiegoCasemiroFS.api.repository.VeiculoRepository;
@@ -22,9 +23,9 @@ public class PedidoService {
     private final VeiculoRepository veiculoRepository;
     private final UsuarioRepository usuarioRepository;
 
-    public Optional<Pedido> findById(Long id) {
-        Optional<Pedido> pedido = pedidoRepository.findById(id);
-        return pedido;
+    public Pedido findById(Long id) {
+        return pedidoRepository.findById(id)
+                .orElseThrow(PedidoException::new);
     }
 
     public PedidoResponseDto cadastraPedido(PedidoRequestDto pedidoDto) {
