@@ -5,8 +5,15 @@
 
 ## Sobre o projeto
 
-Esta API simula um aplicativo para a venda de Veículos. Ela foi desenvolvida utilizando o Spring Framework
+- Esta API simula um aplicativo para a venda de Veículos. Ela foi desenvolvida utilizando o Spring Framework
 e oferece funcionalidades para o gerenciamento de Usuários, Veículos e Pedidos.
+
+## Instruções de Uso
+
+- Para manuseio da API é necessário que criar um Usuário e fazer login com o mesmo.
+- Somente Usuários do tipo admin podem cadastrar, atualizar ou deletar Veículos.
+- Todos os Usuários podem passear pela Vitrine ou realizar um Pedido.
+- Para realizar um Pedido, basta informar o Id do Usuário e do Veículo.
 
 ## Tecnologias Utilizadas
 
@@ -59,7 +66,7 @@ classDiagram
         +Double preco;
         +TipoVeiculo tipoVeiculo;
         
-        +istVeiculos()
+        +listVeiculos()
         +findById(Long id)
         +cadastraVeiculo(Veiculo veiculo)
         +atualizaVeiculo(Long id, Veiculo veiculo)
