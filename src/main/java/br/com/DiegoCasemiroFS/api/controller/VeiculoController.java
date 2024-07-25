@@ -2,12 +2,14 @@ package br.com.DiegoCasemiroFS.api.controller;
 
 import br.com.DiegoCasemiroFS.api.entity.Veiculo;
 import br.com.DiegoCasemiroFS.api.service.VeiculoService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/veiculo")
+@SecurityRequirement(name = "bearer-key")
 public class VeiculoController {
 
     private final VeiculoService veiculoService;
