@@ -16,5 +16,6 @@ public class PedidoResponseDto {
     private Long id;
     private String nomeVeiculo;
     private String nomeUsuario;
+    private Double preco;
     private LocalDateTime dataCadastro;
 }
