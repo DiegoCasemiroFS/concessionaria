@@ -54,7 +54,7 @@ public class UsuarioService implements UserDetailsService {
             usuarioRepository.save(usuario);
 
             String token = jwtService.geraToken(usuario);
-            return new UsuarioResponseDto(usuario.getNome(), token, usuario.isAdmin());
+            return new UsuarioResponseDto(usuario.getNome(), "Realize o login para ter acesso ao Token", usuario.isAdmin());
         }
         throw new RuntimeException("Email já cadastrado");
     }
