@@ -24,9 +24,9 @@ public class UsuarioController {
             return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/registro")
-    public ResponseEntity<UsuarioResponseDto> registro(@RequestBody UsuarioRequestDto body) {
-            UsuarioResponseDto response = usuarioService.registro(body);
+    @PostMapping("/cadastro")
+    public ResponseEntity<UsuarioResponseDto> cadastro(@RequestBody UsuarioRequestDto body) {
+            UsuarioResponseDto response = usuarioService.cadastro(body);
             return ResponseEntity.ok(response);
     }
 }
