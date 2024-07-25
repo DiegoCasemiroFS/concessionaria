@@ -20,6 +20,7 @@ public class VeiculoService {
 
     public Veiculo findById(Long id){
         return veiculoRepository.findById(id)
+                .map(veiculoRepository::save)
                 .orElseThrow(VeiculoException::new);
     }
 
