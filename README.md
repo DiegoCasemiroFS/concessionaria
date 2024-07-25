@@ -47,14 +47,13 @@ http://localhost:8080/swagger-ui/index.html
 classDiagram
     class Usuario{
         +Long id;
-        +String name;
+        +String nome;
         +String email;
         +String senha;
         +boolean admin;
         
-        +loadUserByUsername(String username)
-        +login(LoginRequestDto body)
-        +registro(UsuarioRequestDto body)
+        +login(LoginRequestDto loginRequestDto)
+        +cadastro(UsuarioRequestDto usuarioRequestDto)
     }
     
     class Veiculo{
@@ -66,11 +65,11 @@ classDiagram
         +Double preco;
         +TipoVeiculo tipoVeiculo;
         
-        +listVeiculos()
+        +listagem()
         +findById(Long id)
-        +cadastraVeiculo(Veiculo veiculo)
-        +atualizaVeiculo(Long id, Veiculo veiculo)
-        +deletaVeiculo(Long id)
+        +criacao(Veiculo veiculo)
+        +edicao(Long id, Veiculo veiculo)
+        +deleta(Long id)
     }
     
     class Pedido{
