@@ -15,11 +15,11 @@ public class VitrineController {
     private final VeiculoService veiculoService;
 
     @GetMapping("/listagem")
-    public List<Veiculo> listVeiculos(){
+    public List<Veiculo> listagem(){
         return veiculoService.listVeiculos();
     }
 
-    @GetMapping(("/id/{id}"))
+    @GetMapping(("/{id}"))
     public Veiculo findById(@PathVariable Long id){
         return veiculoService.findById(id);
     }
