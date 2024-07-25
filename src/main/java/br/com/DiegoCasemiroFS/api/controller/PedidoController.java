@@ -17,8 +17,8 @@ public class PedidoController {
     private final PedidoService pedidoService;
 
     @GetMapping("/{id}")
-    public Pedido findById(@PathVariable Long id){
-        return pedidoService.findById(id);
+    public PedidoResponseDto findById(@PathVariable Long id){
+        return pedidoService.listagem(id);
     }
 
     @PostMapping("/cadastra")
