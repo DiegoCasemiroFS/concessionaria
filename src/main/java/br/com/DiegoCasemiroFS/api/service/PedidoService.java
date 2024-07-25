@@ -23,10 +23,20 @@ public class PedidoService {
     private final VeiculoRepository veiculoRepository;
     private final UsuarioRepository usuarioRepository;
 
-    public Pedido findById(Long id) {
-        return pedidoRepository.findById(id)
-                .orElseThrow(PedidoException::new);
+    public PedidoResponseDto listagem(Long id) {
+        Pedido existingPedido = pedidoRepository.findById(id).orElseThrow(PedidoException::new);
+
+        PedidoResponseDto responseDto = new PedidoResponseDto();
+
+        responseDto.setId(existingPedido.getId());
+        responseDto.setNomeVeiculo(existingPedido.getVeiculo().getNome());
+        responseDto.setNomeUsuario(existingPedido.getUsuario().getNome());
+        responseDto.setPreco(existingPedido.getVeiculo().getPreco());
+        responseDto.setDataCadastro(existingPedido.getDataCadastro());
+
+        return responseDto;
     }
+
 
     public PedidoResponseDto cadastraPedido(PedidoRequestDto pedidoDto) {
         Veiculo veiculo = veiculoRepository.findById(pedidoDto.getVeiculoId()).orElseThrow(() -> new RuntimeException("Veiculo não encontrado"));
@@ -43,6 +53,7 @@ public class PedidoService {
         responseDto.setId(savedPedido.getId());
         responseDto.setNomeVeiculo(savedPedido.getVeiculo().getNome());
         responseDto.setNomeUsuario(savedPedido.getUsuario().getNome());
+        responseDto.setPreco(savedPedido.getVeiculo().getPreco());
         responseDto.setDataCadastro(savedPedido.getDataCadastro());
 
         return responseDto;
@@ -63,6 +74,7 @@ public class PedidoService {
         responseDto.setId(updatedPedido.getId());
         responseDto.setNomeVeiculo(updatedPedido.getVeiculo().getNome());
         responseDto.setNomeUsuario(updatedPedido.getUsuario().getNome());
+        responseDto.setPreco(updatedPedido.getVeiculo().getPreco());
         responseDto.setDataCadastro(updatedPedido.getDataCadastro());
 
         return responseDto;
