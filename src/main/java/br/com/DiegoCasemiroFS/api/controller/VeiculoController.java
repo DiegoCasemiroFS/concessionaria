@@ -14,13 +14,13 @@ public class VeiculoController {
 
     private final VeiculoService veiculoService;
 
-    @PostMapping("/cadastra")
-    public Veiculo cadastra(@RequestBody Veiculo veiculo){
+    @PostMapping("/criacao")
+    public Veiculo criacao(@RequestBody Veiculo veiculo){
         return veiculoService.cadastraVeiculo(veiculo);
     }
 
-    @PutMapping(("/{id}"))
-    public Veiculo atualiza(@PathVariable Long id, @RequestBody Veiculo veiculo){
+    @PutMapping(("/edicao/{id}"))
+    public Veiculo edicao(@PathVariable Long id, @RequestBody Veiculo veiculo){
         return veiculoService.atualizaVeiculo(id, veiculo);
     }
 
