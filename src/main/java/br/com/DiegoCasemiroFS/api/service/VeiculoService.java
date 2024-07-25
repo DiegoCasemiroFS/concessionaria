@@ -40,7 +40,7 @@ public class VeiculoService {
 
                     return veiculoRepository.save(f);
                 })
-                .orElseThrow(() -> new VeiculoException());
+                .orElseThrow(VeiculoException::new);
     }
 
     public void deletaVeiculo(Long id){
@@ -48,6 +48,6 @@ public class VeiculoService {
                 .map(f -> {
                     veiculoRepository.delete(f);
                     return Void.TYPE;
-                }).orElseThrow(() -> new VeiculoException());
+                }).orElseThrow(VeiculoException::new);
     }
 }
