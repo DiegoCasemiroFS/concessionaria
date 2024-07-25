@@ -19,14 +19,14 @@ public class UsuarioController {
     private final UsuarioService usuarioService;
 
     @PostMapping("/login")
-    public ResponseEntity<UsuarioResponseDto> login(@RequestBody LoginRequestDto body) {
-            UsuarioResponseDto response = usuarioService.login(body);
+    public ResponseEntity<UsuarioResponseDto> login(@RequestBody LoginRequestDto loginRequestDto) {
+            UsuarioResponseDto response = usuarioService.login(loginRequestDto);
             return ResponseEntity.ok(response);
     }
 
     @PostMapping("/cadastro")
-    public ResponseEntity<UsuarioResponseDto> cadastro(@RequestBody UsuarioRequestDto body) {
-            UsuarioResponseDto response = usuarioService.cadastro(body);
+    public ResponseEntity<UsuarioResponseDto> cadastro(@RequestBody UsuarioRequestDto usuarioRequestDto) {
+            UsuarioResponseDto response = usuarioService.cadastro(usuarioRequestDto);
             return ResponseEntity.ok(response);
     }
 }
