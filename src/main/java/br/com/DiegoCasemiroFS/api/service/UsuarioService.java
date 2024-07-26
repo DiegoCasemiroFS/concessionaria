@@ -65,15 +65,21 @@ public class UsuarioService implements UserDetailsService {
         throw new CadastroException();
     }
 
-    public Usuario atualziaCadastro(Long id, UsuarioRequestDto usuarioRequestDto){
-        return usuarioRepository.findById(id)
-                .map(usuario -> {
-                    usuario.setNome(usuarioRequestDto.getNome());
-                    usuario.setEmail(usuarioRequestDto.getEmail());
-                    usuario.setSenha(usuarioRequestDto.getSenha());
-                    return usuarioRepository.save(usuario);
+    public UsuarioRequestDto atualziaCadastro(Long id, UsuarioRequestDto usuarioRequestDto){
 
-                }).orElseThrow(UsuarioException::new);
+        Usuario usuario = usuarioRepository.findById(id).orElseThrow(UsuarioException::new);
+
+            usuario.setNome(usuarioRequestDto.getNome());
+            usuario.setEmail(usuarioRequestDto.getEmail());
+            usuario.setSenha(usuarioRequestDto.getSenha());
+            usuarioRepository.save(usuario);
+
+
+        return new UsuarioRequestDto(
+                usuario.getNome(),
+                usuario.getEmail(),
+                usuario.getSenha(),
+                usuario.isAdmin());
     }
 
 }

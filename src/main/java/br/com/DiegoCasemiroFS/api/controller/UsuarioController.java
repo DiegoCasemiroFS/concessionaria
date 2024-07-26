@@ -30,7 +30,7 @@ public class UsuarioController {
     }
 
     @PutMapping("/atualiza/{id}")
-    public Usuario atualizaCadastro(@PathVariable Long id, @RequestBody UsuarioRequestDto usuarioRequestDto){
+    public UsuarioRequestDto atualizaCadastro(@PathVariable Long id, @RequestBody UsuarioRequestDto usuarioRequestDto){
         return usuarioService.atualziaCadastro(id, usuarioRequestDto);
     }
 }
