@@ -1,15 +1,14 @@
 package br.com.DiegoCasemiroFS.api.controller;
 
+import br.com.DiegoCasemiroFS.api.entity.Usuario;
 import br.com.DiegoCasemiroFS.api.entity.dto.UsuarioRequestDto;
 import br.com.DiegoCasemiroFS.api.entity.dto.UsuarioResponseDto;
 import br.com.DiegoCasemiroFS.api.entity.dto.LoginRequestDto;
+import br.com.DiegoCasemiroFS.api.repository.UsuarioRepository;
 import br.com.DiegoCasemiroFS.api.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -28,5 +27,10 @@ public class UsuarioController {
     public ResponseEntity<UsuarioResponseDto> cadastro(@RequestBody UsuarioRequestDto usuarioRequestDto) {
             UsuarioResponseDto response = usuarioService.cadastro(usuarioRequestDto);
             return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/atualiza")
+    public Usuario atualizaCadastro(@PathVariable Long id, @RequestBody UsuarioRequestDto usuarioRequestDto){
+        return usuarioService.atualziaCadastro(id, usuarioRequestDto);
     }
 }

@@ -64,4 +64,16 @@ public class UsuarioService implements UserDetailsService {
         }
         throw new CadastroException();
     }
+
+    public Usuario atualziaCadastro(Long id, UsuarioRequestDto usuarioRequestDto){
+        return usuarioRepository.findById(id)
+                .map(f -> {
+                    f.setNome(usuarioRequestDto.getNome());
+                    f.setEmail(usuarioRequestDto.getEmail());
+                    f.setSenha(usuarioRequestDto.getSenha());
+                    return usuarioRepository.save(f);
+
+                }).orElseThrow(UsuarioException::new);
+    }
+
 }
