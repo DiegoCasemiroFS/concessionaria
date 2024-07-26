@@ -67,11 +67,11 @@ public class UsuarioService implements UserDetailsService {
 
     public Usuario atualziaCadastro(Long id, UsuarioRequestDto usuarioRequestDto){
         return usuarioRepository.findById(id)
-                .map(f -> {
-                    f.setNome(usuarioRequestDto.getNome());
-                    f.setEmail(usuarioRequestDto.getEmail());
-                    f.setSenha(usuarioRequestDto.getSenha());
-                    return usuarioRepository.save(f);
+                .map(usuario -> {
+                    usuario.setNome(usuarioRequestDto.getNome());
+                    usuario.setEmail(usuarioRequestDto.getEmail());
+                    usuario.setSenha(usuarioRequestDto.getSenha());
+                    return usuarioRepository.save(usuario);
 
                 }).orElseThrow(UsuarioException::new);
     }
