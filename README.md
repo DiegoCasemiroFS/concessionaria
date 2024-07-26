@@ -14,6 +14,7 @@ e oferece funcionalidades para o gerenciamento de Usuários, Veículos e Pedidos
 - Somente Usuários do tipo admin podem cadastrar, atualizar ou deletar Veículos.
 - Todos os Usuários podem passear pela Vitrine ou realizar um Pedido.
 - Para realizar um Pedido, basta informar o Id do Usuário e do Veículo.
+- Para atualizar um Pedido, o Id do Usuário não pode ser alterado, somente o Id do Veículo.
 
 ## Tecnologias Utilizadas
 
