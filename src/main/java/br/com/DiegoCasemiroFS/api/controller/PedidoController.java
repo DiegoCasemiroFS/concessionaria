@@ -15,7 +15,7 @@ public class PedidoController {
 
     private final PedidoService pedidoService;
 
-    @GetMapping("/{id}")
+    @GetMapping("/findById/{id}")
     public PedidoResponseDto findById(@PathVariable Long id){
         return pedidoService.listagem(id);
     }
@@ -26,7 +26,7 @@ public class PedidoController {
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/atualiza/{id}")
     public ResponseEntity<PedidoResponseDto> atualizaPedido(@PathVariable Long id, @RequestBody PedidoRequestDto pedidoDto) {
         PedidoResponseDto updatedPedido = pedidoService.atualizaPedido(id, pedidoDto);
         return ResponseEntity.ok(updatedPedido);

@@ -19,7 +19,7 @@ public class VitrineController {
         return veiculoService.listVeiculos();
     }
 
-    @GetMapping(("/{id}"))
+    @GetMapping(("/findById/{id}"))
     public Veiculo findById(@PathVariable Long id){
         return veiculoService.findById(id);
     }
