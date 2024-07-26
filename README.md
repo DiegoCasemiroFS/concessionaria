@@ -54,6 +54,7 @@ classDiagram
         
         +login(LoginRequestDto loginRequestDto)
         +cadastro(UsuarioRequestDto usuarioRequestDto)
+        +atualizaCadastro(Long id, UsuarioRequestDto usuarioRequestDto)
     }
     
     class Veiculo{
