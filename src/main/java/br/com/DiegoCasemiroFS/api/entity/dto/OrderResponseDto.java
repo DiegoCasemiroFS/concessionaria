@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PedidoResponseDto {
+public class OrderResponseDto {
 
     private Long id;
     private String nomeVeiculo;

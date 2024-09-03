@@ -12,31 +12,31 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Pedido {
+public class Orders {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "veiculo_id")
+    @JoinColumn(name = "vehicle_id")
     @JsonIgnore
-    private Veiculo veiculo;
+    private Vehicle vehicle;
 
     @ManyToOne
-    @JoinColumn(name = "usuario_id")
+    @JoinColumn(name = "user_id")
     @JsonIgnore
-    private Usuario usuario;
+    private Users users;
 
-    private LocalDateTime dataCadastro;
+    private LocalDateTime registerDate;
 
     @Override
     public String toString() {
-        return "Pedido{" +
+        return "Orders{" +
                 "id=" + id +
-                ", veiculo=" + veiculo +
-                ", usuario=" + usuario +
-                ", dataCadastro=" + dataCadastro +
+                ", vehicle=" + vehicle +
+                ", users=" + users +
+                ", registerDate=" + registerDate +
                 '}';
     }
 }

@@ -54,8 +54,8 @@ classDiagram
         +boolean admin;
         
         +login(LoginRequestDto loginRequestDto)
-        +cadastro(UsuarioRequestDto usuarioRequestDto)
-        +atualizaCadastro(Long id, UsuarioRequestDto usuarioRequestDto)
+        +cadastro(UsuarioRequestDto userRequestDto)
+        +atualizaCadastro(Long id, UsuarioRequestDto userRequestDto)
     }
     
     class Veiculo{
@@ -69,15 +69,15 @@ classDiagram
         
         +listagem()
         +findById(Long id)
-        +criacao(Veiculo veiculo)
-        +edicao(Long id, Veiculo veiculo)
+        +criacao(Veiculo vehicle)
+        +edicao(Long id, Veiculo vehicle)
         +deleta(Long id)
     }
     
     class Pedido{
         +Long id;
-        +Veiculo veiculo;
-        +Usuario usuario;
+        +Veiculo vehicle;
+        +Usuario users;
         +LocalDate dataCadastro;
         
         +findById(Long id)

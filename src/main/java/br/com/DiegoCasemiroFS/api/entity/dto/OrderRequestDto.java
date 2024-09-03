@@ -7,10 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UsuarioRequestDto {
+public class OrderRequestDto {
 
-    private String nome;
-    private String email;
-    private String senha;
-    private boolean admin;
+    private Long veiculoId;
+    private Long usuarioId;
 }

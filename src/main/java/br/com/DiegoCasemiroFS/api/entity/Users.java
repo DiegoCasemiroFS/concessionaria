@@ -18,32 +18,33 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Usuario implements UserDetails {
+public class Users implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nome;
+    private String name;
 
     private String email;
 
-    private String senha;
+    private String password;
 
     private boolean admin;
 
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany(mappedBy = "users")
     @JsonIgnore
-    private List<Pedido> pedidos = new ArrayList<>();
+    private List<Orders> orders = new ArrayList<>();
 
     @Override
     public String toString() {
-        return "Usuario{" +
+        return "Users{" +
                 "id=" + id +
-                ", nome='" + nome + '\'' +
+                ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
-                ", senha='" + senha + '\'' +
+                ", password='" + password + '\'' +
                 ", admin=" + admin +
+                ", orders=" + orders +
                 '}';
     }
 
@@ -54,7 +55,7 @@ public class Usuario implements UserDetails {
 
     @Override
     public String getPassword() {
-        return senha;
+        return password;
     }
 
     @Override

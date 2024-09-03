@@ -1,8 +1,8 @@
 package br.com.DiegoCasemiroFS.api.security;
 
-import br.com.DiegoCasemiroFS.api.entity.Usuario;
+import br.com.DiegoCasemiroFS.api.entity.Users;
 import br.com.DiegoCasemiroFS.api.exception.UsuarioException;
-import br.com.DiegoCasemiroFS.api.repository.UsuarioRepository;
+import br.com.DiegoCasemiroFS.api.repository.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,7 +22,7 @@ import java.util.Collections;
 public class JwtAuthFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
-    private final UsuarioRepository usuarioRepository;
+    private final UserRepository userRepository;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -32,13 +32,13 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         var login = jwtService.validaToken(token);
 
         if (login != null) {
-            Usuario usuario = usuarioRepository.findByEmail(login).orElseThrow(UsuarioException::new);
+            Users users = userRepository.findByEmail(login).orElseThrow(UsuarioException::new);
 
-            var authorities = usuario.isAdmin()
+            var authorities = users.isAdmin()
                     ? Collections.singletonList(new SimpleGrantedAuthority("ROLE_ADMIN"))
                     : Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"));
 
-            var authentication = new UsernamePasswordAuthenticationToken(usuario, null, authorities);
+            var authentication = new UsernamePasswordAuthenticationToken(users, null, authorities);
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
         filterChain.doFilter(request, response);
