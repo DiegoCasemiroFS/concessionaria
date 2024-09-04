@@ -12,8 +12,8 @@ import java.time.LocalDateTime;
 public class OrderResponseDto {
 
     private Long id;
-    private String nomeVeiculo;
-    private String nomeUsuario;
-    private Double preco;
-    private LocalDateTime dataCadastro;
+    private String vehicleName;
+    private String username;
+    private Double price;
+    private LocalDateTime registerDate;
 }
