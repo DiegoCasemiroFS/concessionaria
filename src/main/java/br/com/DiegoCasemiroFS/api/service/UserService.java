@@ -37,7 +37,7 @@ public class UserService implements UserDetailsService {
         Users users = userRepository.findByEmail(requestDto.getEmail())
                 .orElseThrow(UserNotFoundException::new);
 
-        if (passwordEncoder.matches(requestDto.getSenha(), users.getPassword())) {
+        if (passwordEncoder.matches(requestDto.getPassword(), users.getPassword())) {
             String token = jwtService.geraToken(users);
             return new UserResponseDto(users.getId(), users.getName(), token, users.isAdmin());
         }
@@ -49,9 +49,9 @@ public class UserService implements UserDetailsService {
 
         if (user.isEmpty()) {
             Users users = new Users();
-            users.setPassword(passwordEncoder.encode(requestDto.getSenha()));
+            users.setPassword(passwordEncoder.encode(requestDto.getPassword()));
             users.setEmail(requestDto.getEmail());
-            users.setName(requestDto.getNome());
+            users.setName(requestDto.getName());
             users.setAdmin(requestDto.isAdmin());
             userRepository.save(users);
 
@@ -69,9 +69,9 @@ public class UserService implements UserDetailsService {
 
         Users users = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
 
-            users.setName(requestDto.getNome());
+            users.setName(requestDto.getName());
             users.setEmail(requestDto.getEmail());
-            users.setPassword(requestDto.getSenha());
+            users.setPassword(requestDto.getPassword());
             userRepository.save(users);
 
 
