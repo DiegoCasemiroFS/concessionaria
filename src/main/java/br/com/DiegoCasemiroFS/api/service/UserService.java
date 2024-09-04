@@ -4,9 +4,9 @@ import br.com.DiegoCasemiroFS.api.entity.Users;
 import br.com.DiegoCasemiroFS.api.entity.dto.UserRequestDto;
 import br.com.DiegoCasemiroFS.api.entity.dto.LoginRequestDto;
 import br.com.DiegoCasemiroFS.api.entity.dto.UserResponseDto;
-import br.com.DiegoCasemiroFS.api.exception.CadastroException;
-import br.com.DiegoCasemiroFS.api.exception.LoginException;
-import br.com.DiegoCasemiroFS.api.exception.UsuarioException;
+import br.com.DiegoCasemiroFS.api.exception.RegisterUserException;
+import br.com.DiegoCasemiroFS.api.exception.PasswordException;
+import br.com.DiegoCasemiroFS.api.exception.UserNotFoundException;
 import br.com.DiegoCasemiroFS.api.repository.UserRepository;
 import br.com.DiegoCasemiroFS.api.security.JwtService;
 import lombok.RequiredArgsConstructor;
@@ -35,13 +35,13 @@ public class UserService implements UserDetailsService {
 
     public UserResponseDto login(LoginRequestDto requestDto) {
         Users users = userRepository.findByEmail(requestDto.getEmail())
-                .orElseThrow(UsuarioException::new);
+                .orElseThrow(UserNotFoundException::new);
 
         if (passwordEncoder.matches(requestDto.getSenha(), users.getPassword())) {
             String token = jwtService.geraToken(users);
             return new UserResponseDto(users.getId(), users.getName(), token, users.isAdmin());
         }
-        throw new LoginException();
+        throw new PasswordException();
     }
 
     public UserResponseDto registerUser(UserRequestDto requestDto) {
@@ -62,12 +62,12 @@ public class UserService implements UserDetailsService {
                     "Realize o login para ter acesso ao Token",
                     users.isAdmin());
         }
-        throw new CadastroException();
+        throw new RegisterUserException();
     }
 
     public UserRequestDto updateUser(Long id, UserRequestDto requestDto){
 
-        Users users = userRepository.findById(id).orElseThrow(UsuarioException::new);
+        Users users = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
 
             users.setName(requestDto.getNome());
             users.setEmail(requestDto.getEmail());

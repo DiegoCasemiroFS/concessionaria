@@ -5,10 +5,10 @@ import br.com.DiegoCasemiroFS.api.entity.Users;
 import br.com.DiegoCasemiroFS.api.entity.Vehicle;
 import br.com.DiegoCasemiroFS.api.entity.dto.OrderRequestDto;
 import br.com.DiegoCasemiroFS.api.entity.dto.OrderResponseDto;
-import br.com.DiegoCasemiroFS.api.exception.AtualizaPedidoException;
-import br.com.DiegoCasemiroFS.api.exception.PedidoException;
-import br.com.DiegoCasemiroFS.api.exception.UsuarioException;
-import br.com.DiegoCasemiroFS.api.exception.VeiculoException;
+import br.com.DiegoCasemiroFS.api.exception.UpdateOrderException;
+import br.com.DiegoCasemiroFS.api.exception.OrderNotFoundException;
+import br.com.DiegoCasemiroFS.api.exception.UserNotFoundException;
+import br.com.DiegoCasemiroFS.api.exception.VehicleNotFoundException;
 import br.com.DiegoCasemiroFS.api.repository.OrderRepository;
 import br.com.DiegoCasemiroFS.api.repository.UserRepository;
 import br.com.DiegoCasemiroFS.api.repository.VehicleRepository;
@@ -26,7 +26,7 @@ public class OrderService {
     private final UserRepository userRepository;
 
     public OrderResponseDto findById(Long id) {
-        Orders existingOrders = orderRepository.findById(id).orElseThrow(PedidoException::new);
+        Orders existingOrders = orderRepository.findById(id).orElseThrow(OrderNotFoundException::new);
 
         OrderResponseDto responseDto = new OrderResponseDto();
 
@@ -41,8 +41,8 @@ public class OrderService {
 
 
     public OrderResponseDto registerOrder(OrderRequestDto requestDto) {
-        Vehicle vehicle = vehicleRepository.findById(requestDto.getVeiculoId()).orElseThrow(VeiculoException::new);
-        Users users = userRepository.findById(requestDto.getUsuarioId()).orElseThrow(UsuarioException::new);
+        Vehicle vehicle = vehicleRepository.findById(requestDto.getVeiculoId()).orElseThrow(VehicleNotFoundException::new);
+        Users users = userRepository.findById(requestDto.getUsuarioId()).orElseThrow(UserNotFoundException::new);
 
         Orders orders = new Orders();
         orders.setVehicle(vehicle);
@@ -62,9 +62,9 @@ public class OrderService {
     }
 
     public OrderResponseDto updateOrder(Long id, OrderRequestDto requestDto) {
-        Orders orders = orderRepository.findById(id).orElseThrow(PedidoException::new);
-        Vehicle vehicle = vehicleRepository.findById(requestDto.getVeiculoId()).orElseThrow(VeiculoException::new);
-        Users users = userRepository.findById(requestDto.getUsuarioId()).orElseThrow(UsuarioException::new);
+        Orders orders = orderRepository.findById(id).orElseThrow(OrderNotFoundException::new);
+        Vehicle vehicle = vehicleRepository.findById(requestDto.getVeiculoId()).orElseThrow(VehicleNotFoundException::new);
+        Users users = userRepository.findById(requestDto.getUsuarioId()).orElseThrow(UserNotFoundException::new);
 
         if (requestDto.getUsuarioId().equals(orders.getUsers().getId())){
 
@@ -83,7 +83,7 @@ public class OrderService {
 
             return responseDto;
         }
-        throw new AtualizaPedidoException();
+        throw new UpdateOrderException();
     }
 
     public void deleteOrder(Long id) {

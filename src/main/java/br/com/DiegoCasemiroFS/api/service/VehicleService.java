@@ -1,7 +1,7 @@
 package br.com.DiegoCasemiroFS.api.service;
 
 import br.com.DiegoCasemiroFS.api.entity.Vehicle;
-import br.com.DiegoCasemiroFS.api.exception.VeiculoException;
+import br.com.DiegoCasemiroFS.api.exception.VehicleNotFoundException;
 import br.com.DiegoCasemiroFS.api.repository.VehicleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,7 +21,7 @@ public class VehicleService {
     public Vehicle findById(Long id){
         return vehicleRepository.findById(id)
                 .map(vehicleRepository::save)
-                .orElseThrow(VeiculoException::new);
+                .orElseThrow(VehicleNotFoundException::new);
     }
 
     public Vehicle registerVehicle(Vehicle vehicle){
@@ -40,7 +40,7 @@ public class VehicleService {
 
                     return vehicleRepository.save(f);
                 })
-                .orElseThrow(VeiculoException::new);
+                .orElseThrow(VehicleNotFoundException::new);
     }
 
     public void deleteVehicle(Long id){
@@ -48,6 +48,6 @@ public class VehicleService {
                 .map(f -> {
                     vehicleRepository.delete(f);
                     return Void.TYPE;
-                }).orElseThrow(VeiculoException::new);
+                }).orElseThrow(VehicleNotFoundException::new);
     }
 }
