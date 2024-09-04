@@ -1,6 +1,7 @@
 package br.com.DiegoCasemiroFS.api.controller;
 
 import br.com.DiegoCasemiroFS.api.entity.Vehicle;
+import br.com.DiegoCasemiroFS.api.entity.dto.VehicleRequestDto;
 import br.com.DiegoCasemiroFS.api.service.VehicleService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
@@ -15,8 +16,8 @@ public class VehicleController {
     private final VehicleService vehicleService;
 
     @PostMapping("/register")
-    public Vehicle registerVehicle(@RequestBody Vehicle vehicle){
-        return vehicleService.registerVehicle(vehicle);
+    public Vehicle registerVehicle(@RequestBody VehicleRequestDto requestDto){
+        return vehicleService.registerVehicle(requestDto);
     }
 
     @PutMapping(("/update/{id}"))
