@@ -1,6 +1,7 @@
 package br.com.DiegoCasemiroFS.api.service;
 
 import br.com.DiegoCasemiroFS.api.entity.Vehicle;
+import br.com.DiegoCasemiroFS.api.entity.dto.VehicleRequestDto;
 import br.com.DiegoCasemiroFS.api.exception.VehicleNotFoundException;
 import br.com.DiegoCasemiroFS.api.repository.VehicleRepository;
 import lombok.RequiredArgsConstructor;
@@ -24,23 +25,32 @@ public class VehicleService {
                 .orElseThrow(VehicleNotFoundException::new);
     }
 
-    public Vehicle registerVehicle(Vehicle vehicle){
+    public Vehicle registerVehicle(VehicleRequestDto requestDto){
+
+        Vehicle vehicle = new Vehicle();
+
+        vehicle.setName(requestDto.getName());
+        vehicle.setBrand(requestDto.getBrand());
+        vehicle.setModel(requestDto.getModel());
+        vehicle.setCarYear(requestDto.getCarYear());
+        vehicle.setPrice(requestDto.getPrice());
+        vehicle.setVehicleType(requestDto.getVehicleType());
+
         return vehicleRepository.save(vehicle);
     }
 
-    public Vehicle updateVehicle(Long id, Vehicle vehicle) {
-        return vehicleRepository.findById(id)
-                .map(f -> {
-                    f.setName(vehicle.getName());
-                    f.setBrand(vehicle.getBrand());
-                    f.setModel(vehicle.getModel());
-                    f.setCarYear(vehicle.getCarYear());
-                    f.setPrice(vehicle.getPrice());
-                    f.setVehicleType(vehicle.getVehicleType());
+    public Vehicle updateVehicle(Long id, VehicleRequestDto requestDto) {
 
-                    return vehicleRepository.save(f);
-                })
-                .orElseThrow(VehicleNotFoundException::new);
+        Vehicle vehicle = vehicleRepository.findById(id).orElseThrow(VehicleNotFoundException::new);
+
+        vehicle.setName(requestDto.getName());
+        vehicle.setBrand(requestDto.getBrand());
+        vehicle.setModel(requestDto.getModel());
+        vehicle.setCarYear(requestDto.getCarYear());
+        vehicle.setPrice(requestDto.getPrice());
+        vehicle.setVehicleType(requestDto.getVehicleType());
+
+        return vehicleRepository.save(vehicle);
     }
 
     public void deleteVehicle(Long id){
