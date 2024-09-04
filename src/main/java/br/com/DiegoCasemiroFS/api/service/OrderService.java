@@ -31,18 +31,18 @@ public class OrderService {
         OrderResponseDto responseDto = new OrderResponseDto();
 
         responseDto.setId(existingOrders.getId());
-        responseDto.setNomeVeiculo(existingOrders.getVehicle().getName());
-        responseDto.setNomeUsuario(existingOrders.getUsers().getName());
-        responseDto.setPreco(existingOrders.getVehicle().getPrice());
-        responseDto.setDataCadastro(existingOrders.getRegisterDate());
+        responseDto.setVehicleName(existingOrders.getVehicle().getName());
+        responseDto.setUsername(existingOrders.getUsers().getName());
+        responseDto.setPrice(existingOrders.getVehicle().getPrice());
+        responseDto.setRegisterDate(existingOrders.getRegisterDate());
 
         return responseDto;
     }
 
 
     public OrderResponseDto registerOrder(OrderRequestDto requestDto) {
-        Vehicle vehicle = vehicleRepository.findById(requestDto.getVeiculoId()).orElseThrow(VehicleNotFoundException::new);
-        Users users = userRepository.findById(requestDto.getUsuarioId()).orElseThrow(UserNotFoundException::new);
+        Vehicle vehicle = vehicleRepository.findById(requestDto.getVehicleId()).orElseThrow(VehicleNotFoundException::new);
+        Users users = userRepository.findById(requestDto.getUserId()).orElseThrow(UserNotFoundException::new);
 
         Orders orders = new Orders();
         orders.setVehicle(vehicle);
@@ -53,20 +53,20 @@ public class OrderService {
 
         OrderResponseDto responseDto = new OrderResponseDto();
         responseDto.setId(savedOrders.getId());
-        responseDto.setNomeVeiculo(savedOrders.getVehicle().getName());
-        responseDto.setNomeUsuario(savedOrders.getUsers().getName());
-        responseDto.setPreco(savedOrders.getVehicle().getPrice());
-        responseDto.setDataCadastro(savedOrders.getRegisterDate());
+        responseDto.setVehicleName(savedOrders.getVehicle().getName());
+        responseDto.setUsername(savedOrders.getUsers().getName());
+        responseDto.setPrice(savedOrders.getVehicle().getPrice());
+        responseDto.setRegisterDate(savedOrders.getRegisterDate());
 
         return responseDto;
     }
 
     public OrderResponseDto updateOrder(Long id, OrderRequestDto requestDto) {
         Orders orders = orderRepository.findById(id).orElseThrow(OrderNotFoundException::new);
-        Vehicle vehicle = vehicleRepository.findById(requestDto.getVeiculoId()).orElseThrow(VehicleNotFoundException::new);
-        Users users = userRepository.findById(requestDto.getUsuarioId()).orElseThrow(UserNotFoundException::new);
+        Vehicle vehicle = vehicleRepository.findById(requestDto.getVehicleId()).orElseThrow(VehicleNotFoundException::new);
+        Users users = userRepository.findById(requestDto.getUserId()).orElseThrow(UserNotFoundException::new);
 
-        if (requestDto.getUsuarioId().equals(orders.getUsers().getId())){
+        if (requestDto.getUserId().equals(orders.getUsers().getId())){
 
             orders.setVehicle(vehicle);
             orders.setUsers(users);
@@ -76,10 +76,10 @@ public class OrderService {
 
             OrderResponseDto responseDto = new OrderResponseDto();
             responseDto.setId(updatedOrders.getId());
-            responseDto.setNomeVeiculo(updatedOrders.getVehicle().getName());
-            responseDto.setNomeUsuario(updatedOrders.getUsers().getName());
-            responseDto.setPreco(updatedOrders.getVehicle().getPrice());
-            responseDto.setDataCadastro(updatedOrders.getRegisterDate());
+            responseDto.setVehicleName(updatedOrders.getVehicle().getName());
+            responseDto.setUsername(updatedOrders.getUsers().getName());
+            responseDto.setPrice(updatedOrders.getVehicle().getPrice());
+            responseDto.setRegisterDate(updatedOrders.getRegisterDate());
 
             return responseDto;
         }
