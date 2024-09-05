@@ -46,7 +46,7 @@ http://localhost:8080/swagger-ui/index.html
 
 ```mermaid
 classDiagram
-    class Usuario{
+    class User{
         +Long id;
         +String name;
         +String email;
