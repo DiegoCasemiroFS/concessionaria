@@ -48,44 +48,44 @@ http://localhost:8080/swagger-ui/index.html
 classDiagram
     class Usuario{
         +Long id;
-        +String nome;
+        +String name;
         +String email;
-        +String senha;
+        +String password;
         +boolean admin;
         
-        +login(LoginRequestDto loginRequestDto)
-        +cadastro(UsuarioRequestDto userRequestDto)
-        +atualizaCadastro(Long id, UsuarioRequestDto userRequestDto)
+        +login(LoginRequestDto requestDto)
+        +registerUser(UserRequestDto requestDto)
+        +updateUser(Long id, UserRequestDto requestDto)
     }
     
-    class Veiculo{
+    class Vehicle{
         +Long id;
-        +String nome;
-        +String marca;
-        +Long modelo;
-        +Long ano;
-        +Double preco;
-        +TipoVeiculo tipoVeiculo;
+        +String name;
+        +String brand;
+        +Long model;
+        +Long carYear;
+        +Double price;
+        +VehicleType vehicleType;
         
-        +listagem()
+        +findAll()
         +findById(Long id)
-        +criacao(Veiculo vehicle)
-        +edicao(Long id, Veiculo vehicle)
-        +deleta(Long id)
+        +registerVehicle(VehicleRequestDto requestDto)
+        +updateVehicle(Long id, VehicleRequestDto requestDto)
+        +deleteVehicle(Long id)
     }
     
-    class Pedido{
+    class Order{
         +Long id;
         +Veiculo vehicle;
         +Usuario users;
         +LocalDate dataCadastro;
         
         +findById(Long id)
-        +cadastraPedido(PedidoRequestDto pedidoDto)
-        +atualizaPedido(Long id, PedidoRequestDto pedidoDto)
-        +deletaPedido(Long id)
+        +registerOrder(OrderRequestDto requestDto)
+        +updateOrder(Long id, OrderRequestDto requestDto)
+        +deleteOrder(Long id)
     }
     
-    Usuario "1" --> "n" Pedido
-    Veiculo "1" --> "n" Pedido
+    User "1" --> "n" Order
+    Vehicle "1" --> "n" Order
 ```
