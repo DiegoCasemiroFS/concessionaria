@@ -78,7 +78,7 @@ classDiagram
         +Long id;
         +Veiculo vehicle;
         +Usuario users;
-        +LocalDate dataCadastro;
+        +LocalDateTime registerDate;
         
         +findById(Long id)
         +registerOrder(OrderRequestDto requestDto)
